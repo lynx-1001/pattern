@@ -2,7 +2,14 @@
 
 import { ApolloProvider } from '@apollo/client';
 import client from './apolloClient'; // Path to your apolloClient.ts
+import { ThemeProvider } from 'next-themes';
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+  return (
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <ApolloProvider client={client}>
+        {children}
+      </ApolloProvider>
+    </ThemeProvider>
+  )
 }

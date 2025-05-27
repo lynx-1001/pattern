@@ -1,26 +1,35 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
+  /* Light Mode (Default) */
+  /* แปลง HEX เป็น HSL: คุณสามารถใช้เครื่องมือออนไลน์ (ค้นหา "HEX to HSL converter") เพื่อแปลงสี 
+  #7018aa ≈ 283 74% 38%
+  */
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --color-primary: 220 50% 50%; 
+    --color-secondary: 330 70% 60%;
+    --color-background: 0 0% 100%;
+    --color-text: 0 0% 10%; /* #1a1a1a */
+    --color-border: 0 0% 85%; /* #d9d9d9 */
+    --color-test: #7018aa; /* แต่! ถ้าคุณทำแบบนี้ คุณ จะต้อง เปลี่ยน tailwind.config.js ให้ใช้ var() แบบตรงๆ และคุณจะไม่สามารถใช้ Opacity Modifiers (/50, /75) */
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Dark Mode */
+  html.dark {
+    --color-primary: 220 50% 60%;
+    --color-secondary: 330 70% 70%;
+    --color-background: 240 10% 10%; 
+    --color-text: 0 0% 95%;
+    --color-border: 240 10% 25%;
+    --color-test: #aa183b;
+  }
+
+  /* (Optional) Set a base color for the body */
+  body {
+    background-color: hsl(var(--color-background));
+    color: hsl(var(--color-text));
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 }

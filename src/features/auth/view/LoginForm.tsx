@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { useLogin } from '@/features/auth/viewmodel/useLogin';
 import type { LoginDto } from '@/features/auth/model/types';
 import Button from '@/components/ui/Button'; // Assuming you have a shared Button component
+import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher'
 
 export const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -22,6 +23,7 @@ export const LoginForm: React.FC = () => {
   return (
     <form onSubmit={handleSubmit} className="container">
       <h2>เข้าสู่ระบบ</h2>
+      <ThemeSwitcher />
       <div>
         <label htmlFor="email">อีเมล:</label>
         <input
@@ -46,11 +48,11 @@ export const LoginForm: React.FC = () => {
       </div>
       {error && <p className="error-message">เกิดข้อผิดพลาด: {error.message}</p>}
       {loading && <p className="loading-message">กำลังโหลด...</p>}
-      {data && !error && !loading && <p style={{color: "green"}}>เข้าสู่ระบบสำเร็จ! ยินดีต้อนรับ {data.user.email}</p>}
+      {data && !error && !loading && <p style={{ color: "green" }}>เข้าสู่ระบบสำเร็จ! ยินดีต้อนรับ {data.user.email}</p>}
       <Button type="submit" disabled={loading}>
         {loading ? 'กำลังเข้าสู่ระบบ...' : 'เข้าสู่ระบบ'}
       </Button>
-      <p style={{marginTop: "10px"}}>
+      <p style={{ marginTop: "10px" }} className='bg-test'>
         ยังไม่มีบัญชี? <a href="/register">สมัครสมาชิกที่นี่</a>
       </p>
     </form>
