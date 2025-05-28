@@ -3,26 +3,26 @@ import { UserDetail } from '@/features/users/view/UserDetail';
 import type { Metadata, ResolvingMetadata } from 'next';
 
 interface UserDetailPageProps {
-  params: { userId: string };
+  params: Promise<{ userId: string }>; // Promise
 }
 
-// Optional: Generate dynamic metadata based on user ID or fetched user data
+// แก้ไข generateMetadata ให้ await params
 export async function generateMetadata(
   { params }: UserDetailPageProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const userId = params.userId;
-  // คุณสามารถ fetch ข้อมูล user ที่นี่เพื่อสร้าง title แบบ dynamic ได้
-  // เช่น const user = await fetchUserById(userId);
-  // title: user ? `รายละเอียดผู้ใช้: ${user.email}` : 'รายละเอียดผู้ใช้',
+  const { userId } = await params; // await params 
+  
   return {
-    title: `รายละเอียดผู้ใช้ ID: ${userId}`,
-    description: `หน้าแสดงรายละเอียดสำหรับผู้ใช้ ID ${userId}`,
+    title: `User Detail ID: ${userId}`,
+    description: `Detail ID ${userId}`,
   };
 }
 
-export default function UserDetailPage({ params }: UserDetailPageProps) {
+export default async function UserDetailPage({ params }: UserDetailPageProps) {
+  const { userId } = await params; // await params 
+  
   return (
-      <UserDetail userId={params.userId} />
+    <UserDetail userId={userId} />
   );
 }
